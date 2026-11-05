@@ -1,0 +1,29 @@
+# Visual Studio & Build Artifacts
+.vs/
+.vscode/
+.venv/
+Debug/
+Release/
+x64/
+Suhail/
+*.user
+*.suo
+*.aps
+*.ncb
+*.opendb
+*.db
+*.VC.db
+*.pdb
+*.ilk
+*.obj
+*.exe
+*.tlog
+*.idb
+*.iobj
+*.ipdb
+
+# Local tooling & accidental temp files
+.clangd
+.mcp.json
+0
+null

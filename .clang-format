@@ -1,0 +1,104 @@
+# Professional C++ clang-format configuration
+# Goal:
+# - Clean, consistent, readable formatting
+# - Strong support for Visual Studio + Clang Power Tools
+# - Allman braces, 4-space indentation, no tabs
+# - Better handling of classes, access modifiers, includes, and long expressions
+
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Core indentation / layout
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+ColumnLimit: 100
+Standard: c++20
+
+# Braces and blocks
+BreakBeforeBraces: Allman
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: MultiLine
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: false
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
+# Short constructs
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: false
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# Operators / expressions
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AlignConsecutiveBitFields: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+AlignTrailingComments: true
+BreakBeforeBinaryOperators: None
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeCpp11BracedList: true
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpacesInContainerLiterals: false
+SpacesInAngles: Never
+SpacesInCStyleCastParentheses: false
+
+# Pointers / references
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+# Includes / using declarations
+IncludeBlocks: Regroup
+SortIncludes: true
+SortUsingDeclarations: true
+
+# Classes / access control / namespaces
+AccessModifierOffset: -4
+IndentAccessModifiers: false
+EmptyLineBeforeAccessModifier: LogicalBlock
+EmptyLineAfterAccessModifier: Never
+IndentCaseLabels: true
+IndentCaseBlocks: true
+NamespaceIndentation: All
+CompactNamespaces: false
+FixNamespaceComments: true
+
+# Preprocessor / comments / blank lines
+IndentPPDirectives: None
+IndentExternBlock: AfterExternBlock
+ReflowComments: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 2
+
+# Misc
+ConstructorInitializerIndentWidth: 4
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterColon
+Cpp11BracedListStyle: true
+SpaceBeforeCaseColon: false
+SpaceAfterCStyleCast: false
+IndentGotoLabels: true
