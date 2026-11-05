@@ -180,7 +180,8 @@ public:
         pUpdateClients = 8,
         pFindClient    = 16,
         pTranactions   = 32,
-        pManageUsers   = 64
+        pManageUsers   = 64,
+        pLoginRegister   = 128
     };
 
     clsUser(enMode Mode, string FirstName, string LastName, string Email, string Phone,

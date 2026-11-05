@@ -22,8 +22,10 @@ private:
 public:
     static void ShowLoginRegisterScreen()
     {
-        vector<clsUser::stLoginRegisterRecord> vLoginRegisterRecord =
-            clsUser::GetLoginRegisterList();
+        if (!CheckAccessRights(clsUser::enPermissions::pLoginRegister))
+            return;
+
+        vector<clsUser::stLoginRegisterRecord> vLoginRegisterRecord = clsUser::GetLoginRegisterList();
 
         string Title    = "\tLogin Register List Screen";
         string SubTitle = "\t\t(" + to_string(vLoginRegisterRecord.size()) + ") Record(s).";
@@ -38,8 +40,7 @@ public:
         cout << "| " << left << setw(20) << "UserName";
         cout << "| " << left << setw(20) << "Password";
         cout << "| " << left << setw(10) << "Permissions";
-        cout << setw(8) << left << ""
-             << "\n\t_______________________________________________________";
+        cout << setw(8) << left << "\n\t_______________________________________________________";
         cout << "_________________________________________\n" << endl;
 
         if (vLoginRegisterRecord.size() == 0)
