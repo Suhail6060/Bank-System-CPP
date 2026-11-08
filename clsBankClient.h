@@ -1,4 +1,5 @@
 #pragma once
+#include "clsDate.h"
 #include "clsPerson.h"
 #include "clsString.h"
 
@@ -33,7 +34,7 @@ private:
                              vClientData[3], vClientData[4], vClientData[5], stof(vClientData[6]));
     }
 
-    static string _ConvertClientObjectToLine(clsBankClient Client, string Seperator = "#//#")
+    static string _ConverClientObjectToLine(clsBankClient Client, string Seperator = "#//#")
     {
         string stClientRecord = "";
         stClientRecord += Client.FirstName + Seperator;
@@ -45,11 +46,6 @@ private:
         stClientRecord += to_string(Client.AccountBalance);
 
         return stClientRecord;
-    }
-
-    static string _ConverClientObjectToLine(clsBankClient Client, string Seperator = "#//#")
-    {
-        return _ConvertClientObjectToLine(Client, Seperator);
     }
 
     static vector<clsBankClient> _LoadClientsDataFromFile()
@@ -77,7 +73,7 @@ private:
         return vClients;
     }
 
-    static void _SaveClientsDataToFile(vector<clsBankClient> vClients)
+    static void _SaveCleintsDataToFile(vector<clsBankClient> vClients)
     {
         fstream MyFile;
         MyFile.open("Clients.txt", ios::out); // overwrite
@@ -91,18 +87,13 @@ private:
                 if (C.MarkedForDeleted() == false)
                 {
                     // we only write records that are not marked for delete.
-                    DataLine = _ConvertClientObjectToLine(C);
+                    DataLine = _ConverClientObjectToLine(C);
                     MyFile << DataLine << endl;
                 }
             }
 
             MyFile.close();
         }
-    }
-
-    static void _SaveCleintsDataToFile(vector<clsBankClient> vClients)
-    {
-        _SaveClientsDataToFile(vClients);
     }
 
     void _Update()
@@ -119,12 +110,12 @@ private:
             }
         }
 
-        _SaveClientsDataToFile(_vClients);
+        _SaveCleintsDataToFile(_vClients);
     }
 
     void _AddNew()
     {
-        _AddDataLineToFile(_ConvertClientObjectToLine(*this));
+        _AddDataLineToFile(_ConverClientObjectToLine(*this));
     }
 
     void _AddDataLineToFile(string stDataLine)
@@ -143,6 +134,35 @@ private:
     static clsBankClient _GetEmptyClientObject()
     {
         return clsBankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
+    }
+
+    string _PrepareTransferLogRecord(float Amount, clsBankClient DestinationClient, string UserName,
+                                     string Seperator = "#//#")
+    {
+        string TransferLogRecord = "";
+        TransferLogRecord += clsDate::GetSystemDateTimeString() + Seperator;
+        TransferLogRecord += AccountNumber() + Seperator;
+        TransferLogRecord += DestinationClient.AccountNumber() + Seperator;
+        TransferLogRecord += to_string(Amount) + Seperator;
+        TransferLogRecord += to_string(AccountBalance) + Seperator;
+        TransferLogRecord += to_string(DestinationClient.AccountBalance) + Seperator;
+        TransferLogRecord += UserName;
+        return TransferLogRecord;
+    }
+
+    void _RegisterTransferLog(float Amount, clsBankClient DestinationClient, string UserName)
+    {
+        string stDataLine = _PrepareTransferLogRecord(Amount, DestinationClient, UserName);
+
+        fstream MyFile;
+        MyFile.open("TransferLog.txt", ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+            MyFile << stDataLine << endl;
+
+            MyFile.close();
+        }
     }
 
 public:
@@ -246,12 +266,10 @@ public:
     {
         svFaildEmptyObject          = 0,
         svFailedEmptyObject         = 0,
-        svFileEmptyObject           = 0,
         svSucceeded                 = 1,
         svFaildAccountNumberExists  = 2,
         svFailedAccountNumberExists = 2
     };
-    typedef enSaveResults enSaveResult;
 
     enSaveResults Save()
     {
@@ -261,9 +279,9 @@ public:
                 {
                     if (IsEmpty())
                     {
-                        return enSaveResults::svFailedEmptyObject;
+                        return enSaveResults::svFaildEmptyObject;
                     }
-                    return enSaveResults::svFailedEmptyObject;
+                    break;
                 }
 
             case enMode::UpdateMode:
@@ -278,7 +296,7 @@ public:
                     // This will add new record to file or database
                     if (clsBankClient::IsClientExist(_AccountNumber))
                     {
-                        return enSaveResults::svFailedAccountNumberExists;
+                        return enSaveResults::svFaildAccountNumberExists;
                     }
                     else
                     {
@@ -290,7 +308,8 @@ public:
                     }
                 }
         }
-        return enSaveResults::svFailedEmptyObject;
+
+        return enSaveResults::svFaildEmptyObject;
     }
 
     static bool IsClientExist(string AccountNumber)
@@ -313,7 +332,7 @@ public:
             }
         }
 
-        _SaveClientsDataToFile(_vClients);
+        _SaveCleintsDataToFile(_vClients);
 
         *this = _GetEmptyClientObject();
 
@@ -337,15 +356,19 @@ public:
         Save();
     }
 
+
     bool Withdraw(double Amount)
     {
         if (Amount > _AccountBalance)
         {
             return false;
         }
-        _AccountBalance -= (float)Amount;
-        Save();
-        return true;
+        else
+        {
+            _AccountBalance -= (float)Amount;
+            Save();
+            return true;
+        }
     }
 
     static double GetTotalBalances()
@@ -362,7 +385,7 @@ public:
         return TotalBalances;
     }
 
-    bool Transfer(float Amount, clsBankClient& DestinationClient)
+    bool Transfer(float Amount, clsBankClient& DestinationClient, string UserName)
     {
         if (Amount > AccountBalance)
         {
@@ -371,6 +394,8 @@ public:
 
         Withdraw(Amount);
         DestinationClient.Deposit(Amount);
+        _RegisterTransferLog(Amount, DestinationClient, UserName);
+
         return true;
     }
 };
