@@ -71,9 +71,6 @@
     <ClInclude Include="clsWithdrawScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="clsShowTotalBalancesScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="clsTransactionsScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>

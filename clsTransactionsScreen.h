@@ -2,7 +2,7 @@
 #include "clsDepositScreen.h"
 #include "clsInputValidate.h"
 #include "clsScreen.h"
-#include "clsShowTotalBalancesScreen.h"
+#include "clsTotalBalancesScreen.h"
 #include "clsTransferScreen.h"
 #include "clsWithdrawScreen.h"
 
