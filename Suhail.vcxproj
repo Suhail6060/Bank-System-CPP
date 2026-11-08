@@ -159,6 +159,7 @@
     <ClInclude Include="clsWithdrawScreen.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="clsLoginRegisterScreen.h" />
+    <ClInclude Include="clsTransferScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
