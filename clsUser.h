@@ -2,6 +2,7 @@
 #include "clsDate.h"
 #include "clsPerson.h"
 #include "clsString.h"
+#include "clsUtil.h"
 
 #include <fstream>
 #include <iostream>
@@ -43,7 +44,7 @@ private:
         vector<string> LoginRegisterDataLine = clsString::Split(Line, Seperator);
         LoginRegisterRecord.DateTime         = LoginRegisterDataLine[0];
         LoginRegisterRecord.UserName         = LoginRegisterDataLine[1];
-        LoginRegisterRecord.Password         = LoginRegisterDataLine[2];
+        LoginRegisterRecord.Password         = clsUtil::DecryptText(LoginRegisterDataLine[2]);
         LoginRegisterRecord.Permissions      = stoi(LoginRegisterDataLine[3]);
 
         return LoginRegisterRecord;
@@ -54,7 +55,7 @@ private:
         string LoginRecord = "";
         LoginRecord += clsDate::GetSystemDateTimeString() + Seperator;
         LoginRecord += UserName + Seperator;
-        LoginRecord += Password + Seperator;
+        LoginRecord += clsUtil::EncryptText(Password) + Seperator;
         LoginRecord += to_string(Permissions);
         return LoginRecord;
     }
@@ -65,7 +66,7 @@ private:
         vUserData = clsString::Split(Line, Seperator);
 
         return clsUser(enMode::UpdateMode, vUserData[0], vUserData[1], vUserData[2], vUserData[3],
-                       vUserData[4], vUserData[5], stoi(vUserData[6]));
+                       vUserData[4], clsUtil::DecryptText(vUserData[5]), stoi(vUserData[6]));
     }
 
     static string _ConverUserObjectToLine(clsUser User, string Seperator = "#//#")
@@ -76,7 +77,7 @@ private:
         UserRecord += User.Email + Seperator;
         UserRecord += User.Phone + Seperator;
         UserRecord += User.UserName + Seperator;
-        UserRecord += User.Password + Seperator;
+        UserRecord += clsUtil::EncryptText(User.Password) + Seperator;
         UserRecord += to_string(User.Permissions);
 
         return UserRecord;
