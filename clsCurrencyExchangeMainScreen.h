@@ -1,7 +1,11 @@
 #pragma once
 
+#include "clsCurrenciesListScreen.h"
+#include "clsFindCurrencyScreen.h"
 #include "clsInputValidate.h"
 #include "clsScreen.h"
+#include "clsUpdateCurrencyRateScreen.h"
+#include "clsCurrencyCalculatorScreen.h"
 
 #include <iomanip>
 #include <iostream>
@@ -23,25 +27,26 @@ private:
     static short _ReadMainMenueOption()
     {
         cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 5]? ";
-        short Choice = clsInputValidate::ReadShortNumberBetween(1, 5, "Enter Number between 1 to 5? ");
+        short Choice =
+            clsInputValidate::ReadShortNumberBetween(1, 5, "Enter Number between 1 to 5? ");
         return Choice;
     }
 
     static void _ShowListCurrenciesScreen()
     {
-
+        clsCurrenciesListScreen::ShowCurrenciesListScreen();
     }
     static void _ShowFindCurrencyScreen()
     {
-
+        clsFindCurrencyScreen::ShowFindCurrencyScreen();
     }
     static void _ShowUpdateRateScreen()
     {
-
+        clsUpdateCurrencyRateScreen::ShowUpdateCurrencyRateScreen();
     }
-    static void _ShowCurrencyCalculatorScreen()
+    static void _ShowCurrencyCalculatorScreen() 
     {
-
+        clsCurrencyCalculatorScreen::ShowCurrencyCalculatorScreen();
     }
 
     static void _GoBackToCurrencyExchangeMenue()

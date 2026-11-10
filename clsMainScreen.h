@@ -11,7 +11,7 @@
 #include "clsScreen.h"
 #include "clsTransactionsScreen.h"
 #include "clsUpdateClientScreen.h"
-#include "clsCurrencyScreen.h"
+#include "clsCurrencyExchangeMainScreen.h"
 
 #include <iostream>
 
