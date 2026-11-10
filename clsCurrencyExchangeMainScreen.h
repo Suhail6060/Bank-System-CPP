@@ -28,7 +28,7 @@ private:
     {
         cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 5]? ";
         short Choice =
-            clsInputValidate::ReadShortNumberBetween(1, 5, "Enter Number between 1 to 5? ");
+            clsInputValidate::ReadNumberBetween(1, 5, "Enter Number between 1 to 5? ");
         return Choice;
     }
 
