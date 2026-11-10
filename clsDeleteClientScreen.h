@@ -29,7 +29,7 @@ public:
     {
         if (!CheckAccessRights(clsUser::enPermissions::pDeleteClient))
         {
-            return; // this will exit the function and it will not continue
+            return;
         }
 
         _DrawScreenHeader("\tDelete Client Screen");

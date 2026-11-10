@@ -11,6 +11,18 @@
 using namespace std;
 class clsBankClient : public clsPerson
 {
+public:
+    struct stTrnsferLogRecord
+    {
+        string DateTime;
+        string SourceAccountNumber;
+        string DestinationAccountNumber;
+        float  Amount           = 0.0f;
+        float  srcBalanceAfter  = 0.0f;
+        float  destBalanceAfter = 0.0f;
+        string UserName;
+    };
+
 private:
     enum enMode
     {
@@ -53,7 +65,7 @@ private:
         vector<clsBankClient> vClients;
 
         fstream MyFile;
-        MyFile.open("Clients.txt", ios::in); // read Mode
+        MyFile.open("Clients.txt", ios::in);
 
         if (MyFile.is_open())
         {
@@ -76,7 +88,7 @@ private:
     static void _SaveCleintsDataToFile(vector<clsBankClient> vClients)
     {
         fstream MyFile;
-        MyFile.open("Clients.txt", ios::out); // overwrite
+        MyFile.open("Clients.txt", ios::out);
 
         string DataLine;
 
@@ -86,7 +98,6 @@ private:
             {
                 if (C.MarkedForDeleted() == false)
                 {
-                    // we only write records that are not marked for delete.
                     DataLine = _ConverClientObjectToLine(C);
                     MyFile << DataLine << endl;
                 }
@@ -165,8 +176,6 @@ private:
         }
     }
 
-    struct stTrnsferLogRecord;
-
     static stTrnsferLogRecord _ConvertTransferLogLineToRecord(string Line, string Seperator = "#//#")
     {
         stTrnsferLogRecord TrnsferLogRecord;
@@ -184,17 +193,6 @@ private:
     }
 
 public:
-    struct stTrnsferLogRecord
-    {
-        string DateTime;
-        string SourceAccountNumber;
-        string DestinationAccountNumber;
-        float  Amount          = 0.0f;
-        float  srcBalanceAfter = 0.0f;
-        float  destBalanceAfter = 0.0f;
-        string UserName;
-    };
-
     clsBankClient(enMode Mode, string FirstName, string LastName, string Email, string Phone,
                   string AccountNumber, string PinCode, float AccountBalance) :
         clsPerson(FirstName, LastName, Email, Phone)
@@ -247,7 +245,7 @@ public:
     static clsBankClient Find(string AccountNumber)
     {
         fstream MyFile;
-        MyFile.open("Clients.txt", ios::in); // read Mode
+        MyFile.open("Clients.txt", ios::in);
 
         if (MyFile.is_open())
         {
@@ -271,7 +269,7 @@ public:
     static clsBankClient Find(string AccountNumber, string PinCode)
     {
         fstream MyFile;
-        MyFile.open("Clients.txt", ios::in); // read Mode
+        MyFile.open("Clients.txt", ios::in);
 
         if (MyFile.is_open())
         {
@@ -322,7 +320,6 @@ public:
 
             case enMode::AddNewMode:
                 {
-                    // This will add new record to file or database
                     if (clsBankClient::IsClientExist(_AccountNumber))
                     {
                         return enSaveResults::svFaildAccountNumberExists;
@@ -331,7 +328,6 @@ public:
                     {
                         _AddNew();
 
-                        // We need to set the mode to update after add new
                         _Mode = enMode::UpdateMode;
                         return enSaveResults::svSucceeded;
                     }
@@ -433,7 +429,7 @@ public:
         vector<stTrnsferLogRecord> vTransferLogRecord;
 
         fstream MyFile;
-        MyFile.open("TransferLog.txt", ios::in); // read Mode
+        MyFile.open("TransferLog.txt", ios::in);
 
         if (MyFile.is_open())
         {

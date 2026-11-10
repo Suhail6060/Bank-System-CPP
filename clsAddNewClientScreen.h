@@ -51,7 +51,7 @@ public:
     {
         if (!CheckAccessRights(clsUser::enPermissions::pAddNewClient))
         {
-            return; // this will exit the function and it will not continue
+            return;
         }
 
         _DrawScreenHeader("\t  Add New Client Screen");

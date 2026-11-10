@@ -48,25 +48,21 @@ private:
 
     static void _ShowAddNewUserScreen()
     {
-        // cout << "\nAdd New User Screen Will Be Here.\n";
         clsAddNewUserScreen::ShowAddNewUserScreen();
     }
 
     static void _ShowDeleteUserScreen()
     {
-        // cout << "\nDelete User Screen Will Be Here.\n";
         clsDeleteUserScreen::ShowDeleteUserScreen();
     }
 
     static void _ShowUpdateUserScreen()
     {
-        // cout << "\nUpdate User Screen Will Be Here.\n";
         clsUpdateUserScreen::ShowUpdateUserScreen();
     }
 
     static void _ShowFindUserScreen()
     {
-        // cout << "\nFind User Screen Will Be Here.\n";
         clsFindUserScreen::ShowFindUserScreen();
     }
 
@@ -117,7 +113,6 @@ private:
 
             case enManageUsersMenueOptions::eMainMenue:
                 {
-                    // do nothing here the main screen will handle it :-) ;
                 }
         }
     }
@@ -127,7 +122,7 @@ public:
     {
         if (!CheckAccessRights(clsUser::enPermissions::pManageUsers))
         {
-            return; // this will exit the function and it will not continue
+            return;
         }
 
         system("cls");

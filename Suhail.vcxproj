@@ -133,6 +133,8 @@
     <ClInclude Include="clsAddNewClientScreen.h" />
     <ClInclude Include="clsAddNewUserScreen.h" />
     <ClInclude Include="clsBankClient.h" />
+    <ClInclude Include="clsCurrency.h" />
+    <ClInclude Include="clsCurrencyScreen.h" />
     <ClInclude Include="clsDate.h" />
     <ClInclude Include="clsDeleteClientScreen.h" />
     <ClInclude Include="clsDeleteUserScreen.h" />
@@ -148,6 +150,7 @@
     <ClInclude Include="clsString.h" />
     <ClInclude Include="clsTotalBalancesScreen.h" />
     <ClInclude Include="clsTransactionsScreen.h" />
+    <ClInclude Include="clsTransferLogScreen.h" />
     <ClInclude Include="clsUpdateClientScreen.h" />
     <ClInclude Include="clsUpdateUserScreen.h" />
     <ClInclude Include="clsUser.h" />
@@ -169,7 +172,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Clients.txt" />
+    <Text Include="Currencies.txt" />
     <Text Include="LoginRegister.txt" />
+    <Text Include="TransferLog.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -88,7 +88,7 @@ private:
         vector<clsUser> vUsers;
 
         fstream MyFile;
-        MyFile.open("Users.txt", ios::in); // read Mode
+        MyFile.open("Users.txt", ios::in);
 
         if (MyFile.is_open())
         {
@@ -111,7 +111,7 @@ private:
     static void _SaveUsersDataToFile(vector<clsUser> vUsers)
     {
         fstream MyFile;
-        MyFile.open("Users.txt", ios::out); // overwrite
+        MyFile.open("Users.txt", ios::out);
 
         string DataLine;
 
@@ -121,7 +121,6 @@ private:
             {
                 if (U.MarkedForDeleted() == false)
                 {
-                    // we only write records that are not marked for delete.
                     DataLine = _ConverUserObjectToLine(U);
                     MyFile << DataLine << endl;
                 }
@@ -243,7 +242,7 @@ public:
     static clsUser Find(string UserName)
     {
         fstream MyFile;
-        MyFile.open("Users.txt", ios::in); // read Mode
+        MyFile.open("Users.txt", ios::in);
 
         if (MyFile.is_open())
         {
@@ -267,7 +266,7 @@ public:
     static clsUser Find(string UserName, string Password)
     {
         fstream MyFile;
-        MyFile.open("Users.txt", ios::in); // read Mode
+        MyFile.open("Users.txt", ios::in);
 
         if (MyFile.is_open())
         {
@@ -315,7 +314,6 @@ public:
 
             case enMode::AddNewMode:
                 {
-                    // This will add new record to file or database
                     if (clsUser::IsUserExist(_UserName))
                     {
                         return enSaveResults::svFaildUserExists;
@@ -323,7 +321,6 @@ public:
                     else
                     {
                         _AddNew();
-                        // We need to set the mode to update after add new
                         _Mode = enMode::UpdateMode;
                         return enSaveResults::svSucceeded;
                     }
@@ -402,7 +399,7 @@ public:
         vector<stLoginRegisterRecord> vLoginRegisterRecord;
 
         fstream MyFile;
-        MyFile.open("LoginRegister.txt", ios::in); // read Mode
+        MyFile.open("LoginRegister.txt", ios::in);
 
         if (MyFile.is_open())
         {
